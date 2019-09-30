@@ -1,0 +1,339 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="JHH"><meta name="renderer" content="webkit"><meta name="copyright" content="JHH"><meta name="keywords" content="Hexo"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Mr.JI's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">ForKakao-J</div><div class="profile-signature">for me</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Longlongyu" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.JI's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title"></h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-calendar"></i><span>2019-09-30</span></span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><!doctype>
+<html>
+   <head><meta name="generator" content="Hexo 3.9.0">
+		<meta charset="UTF-8">
+		<title>MYSQL的基本操作</title>
+        <link href="MYSQL.css" rel="stylesheet">
+	</head>
+    <body>
+       <div id="wrap">
+           <h1>MYSQL的基本操作</h1>
+           <h3>一、字段的类型和属性</h3>
+           <div class="table-left">
+              <p>整形</p>
+               <ol>
+                   <li>MySQL数据类型</li>
+                   <li>tinyint(m)</li>
+                   <li>smallint(m)</li>
+                   <li>mediumint(m)</li>
+                   <li>int(m)</li>
+                   <li>bigint(m)</li>
+               </ol>
+           </div>
+           <div class="table-right">
+               <ul>
+                   <li>含义</li>
+                   <li>1个字节  范围(-128~127)</li>
+                   <li>2个字节  范围(-32768~32767)</li>
+                   <li>3个字节  范围(-8388608~8388607)</li>
+                   <li>4个字节  范围(-2147483648~2147483647)</li>
+                   <li>8个字节  范围(+-9.22*10的18次方)</li>
+               </ul>
+           </div>
+           <br>
+<!------------------------------------------------------------>           
+           <div class="table-left">
+              <p>浮点型</p>
+               <ol>
+                   <li>MySQL数据类型</li>
+                   <li>float(m,d)</li>
+                   <li>double(m,d)</li>
+               </ol>
+           </div>
+           <div class="table-right">
+               <ul>
+                   <li>含义</li>
+                   <li>单精度浮点型    8位精度(4字节)     m总个数，d小数位</li>
+                   <li>双精度浮点型    16位精度(8字节)    m总个数，d小数位</li>                 
+               </ul>
+           </div>
+           <br>
+<!------------------------------------------------------------>             
+           <div class="table-left">
+              <p>字符串</p>
+               <ol>
+                   <li>MySQL数据类型</li>
+                   <li>char(n)</li>
+                   <li>varchar(n)</li>
+                   <li>tinytext</li>
+                   <li>text</li>
+                   <li>mediumtext</li>
+                   <li>longtext</li>
+               </ol>
+           </div>
+           <div class="table-right">
+               <ul>
+                   <li>含义</li>
+                   <li>固定长度，最多255个字符</li>
+                   <li>固定长度，最多65535个字符</li> 
+                   <li>可变长度，最多255个字符</li>
+                   <li>可变长度，最多65535个字符</li>
+                   <li>可变长度，最多2的24次方-1个字符</li>
+                   <li>可变长度，最多2的32次方-1个字符</li>                
+               </ul>
+           </div>
+           <br>
+<!------------------------------------------------------------> 
+           <div class="table-left">
+              <p>日期时间类型</p>
+               <ol>
+                   <li>MySQL数据类型</li>
+                   <li>date</li>
+                   <li>time</li>
+                   <li>datetime</li>
+                   <li>timestamp</li>
+               </ol>
+           </div>
+           <div class="table-right">
+               <ul>
+                   <li>含义</li>
+                   <li>日期 '2019-9-17'</li>
+                   <li>时间 '19:25:36'</li> 
+                   <li>日期时间 '2019-9-17 19:25:44'</li>
+                   <li>自动存储记录修改时间</li>             
+               </ul>
+           </div>
+           <br>
+<!------------------------------------------------------------> 
+           <div class="table-left">
+              <p>类型的属性</p>
+               <ol>
+                   <li>MySQL关键字</li>
+                   <li>NULL</li>
+                   <li>NOT NULL</li>
+                   <li>DEFAULT</li>
+                   <li>PRIMARY KEY</li>
+                   <li>AUTO_INCREMENT</li>
+                   <li>UNSIGNED</li>
+                   <li>CHARACTER SET name</li>
+               </ol>
+           </div>
+           <div class="table-right">
+               <ul>
+                   <li>含义</li>
+                   <li>数据列可包含NULL值</li>
+                   <li>数据列不允许包含NULL值</li> 
+                   <li>默认值</li>
+                   <li>主键(不可重复)</li>    
+                   <li>自动递增，适用于整数类型</li>
+                   <li>无符号</li>
+                   <li>指定一个字符集</li>         
+               </ul>
+           </div>
+           <br>
+<!------------------------------------------------------------> 
+           <h3>二、基本控制语句</h3>
+           <ol>
+               <li>创建表
+                   <ul>
+                       <li>create table [表名]([字段名] 类型 , [字段名] 类型... , 属性)</li>
+                   </ul>
+               </li>
+               <br>
+               <li>复制表
+                   <ul>
+                       <li>create table [table1] select * from [table2];</li>
+                            或者部分复制:
+　　　　                <li>create table [table1] select id,name from [table2];</li>
+                   </ul>
+               </li>
+               <br>
+               <li>查看数据库中可用的表
+                   <ul>
+                       <li>show tables;</li>
+                   </ul>
+               </li>
+               <br>
+               <li>查看表的结构
+                   <ul>
+                       <li>describe [table];</li>
+                            或者:
+　　　　                <li>show columns from [table];</li>
+                   </ul>
+               </li>
+               <br>
+               <li>删除表
+                   <ul>
+                       <li>删表很简单，操作须谨慎^.^</li><li>drop table [table];</li>
+                   </ul>
+               </li>
+               <br>
+               <li>表重命名
+                   <ul>
+                       <li>alter table [old] rename [new];</li>
+                   </ul>
+               </li>
+               <br>
+               <li>更改表结构
+                   <ul>
+                       <li>修改字段名: alter table [old] rename [new];</li>
+                       <li>添加表列: alter table [table]  add column [字段名] varchar(10);</li>
+                       <li>修改表列类型: alter table [table] modify [字段名] char(10);</li>
+                       <li>修改表列名: alter table [table] column [字段名] [字段名new] varchar(30);</li>
+                   </ul>
+               </li>
+               <br>
+               <li>插入数据
+                   <ul>
+                       <li>insert into [table](id,name,score)VALUES(NULL,'张三',140),(NULL,'张四',178),(NULL,'张五',134);</li>             
+                   </ul>
+               </li>
+               <br>
+               <li>更新数据
+                   <ul>
+                       <li>update [table] set [修改的值] WHERE [条件/筛选];</li> 
+                   </ul>
+               </li>
+               <br>
+               <li>删除数据
+                   <ul>
+                       <li>delete from [table] where [条件/筛选];</li> 
+                   </ul>
+               </li>
+               <br>
+               <li>条件控制
+                   <ul>
+                       <li>delete from [table] where [条件/筛选];</li> 
+                   </ul>
+               </li>
+           </ol>
+<!------------------------------------------------------------>            
+          <h3>三、多表查询</h3>
+          <ol>
+              <li>内连接
+                  <ul>
+                      <li>select [table].[字段] , [table2].[字段] from [table] inner join [table2] on [table].[字段] = [table2].[字段] ;</li>
+                  </ul>
+              </li>
+              <br>
+              <li>左连接
+                  <ul>
+                      <li>select [table].[字段] , [table2].[字段] from [table] left join [table2] on [table].[字段] = [table2].[字段] ;</li>
+                  </ul>
+              </li>
+              <br>
+              <li>右连接
+                  <ul>
+                      <li>select [table].[字段] , [table2].[字段] from [table] right join [table2] on [table].[字段] = [table2].[字段] ;</li>
+                  </ul>
+              </li>
+              <br>
+              <li>完全连接
+                  <ul>
+                      <li>select [table].[字段] , [table2].[字段] from [table] full join [table2] on [table].[字段] = [table2].[字段] ;</li>
+                  </ul>
+              </li>
+              <br>
+          </ol>
+<!------------------------------------------------------------>     
+          <h3>四、视图</h3>   
+          <ol>
+              <il>创建视图
+                 <ul>
+                  <li>  create view [视图名] as select [table].[字段] as [新字段] from [table];</li>
+                  </ul>
+              </il>
+          </ol>
+          <br>
+       </div>     
+    </body> 
+</html></article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="https://ForKakao-J.github.io">JHH</a></p><p> <span>Link:  </span><a href="https://ForKakao-J.github.io/2019/09/30/MYSQL/MYSQL/">https://ForKakao-J.github.io/2019/09/30/MYSQL/MYSQL/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/3.0">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="prevSlogan" href="/2019/09/30/MYSQL/MYSQL/" title=""><span>< PreviousPost</span><br><span class="prevTitle">[Untitled Post]</span></a><a class="nextSlogan" href="/2019/08/18/hello-world/" title="Hello Welcome to my Bolg!"><span>NextPost ></span><br><span class="nextTitle">Hello Welcome to my Bolg!</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#wrap"><span class="toc-number">1.</span> <span class="toc-text">MYSQL的基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#wrap"><span class="toc-number">1.0.1.</span> <span class="toc-text">一、字段的类型和属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wrap"><span class="toc-number">1.0.2.</span> <span class="toc-text">二、基本控制语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wrap"><span class="toc-number">1.0.3.</span> <span class="toc-text">三、多表查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wrap"><span class="toc-number">1.0.4.</span> <span class="toc-text">四、视图</span></a></li></ol></li></ol></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
